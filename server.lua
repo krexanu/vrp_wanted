@@ -105,11 +105,11 @@ local function ch_wantedlist(player,choice)
 	end)
 end
 
-vRP.registerMenuBuilder({"main", function(add, data)
+vRP.registerMenuBuilder({"police", function(add, data)
 	local user_id = vRP.getUserId({data.player})
 	if user_id ~= nil then
 		local choices = {}
-		if(vRP.hasGroup({user_id, "user"}))then
+		if(vRP.hasGroup({user_id, "cop"}))then
 			choices["Wanted"] = {function(player,choice)
 				vRP.buildMenu({"Wanted", {player = player}, function(menu)
 					menu.name = "Wanted"
