@@ -1,11 +1,3 @@
---[[
-	kk kk  rrrr   eeeee   xx   xx
-	kkk    rr rr  ee       xx xx
-	k	   rr rr  eeeee      x
-	kkk	   rrr	  ee       xx xx
-	kk kk  rr rr  eeeee   xx   xx
-]]
-
 local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
 
@@ -17,6 +9,15 @@ vRPCwanted = Tunnel.getInterface("vRP_wanted","vRP_wanted")
 vRPwanted = {}
 Tunnel.bindInterface("vRP_wanted",vRPwanted)
 Proxy.addInterface("vRP_wanted",vRPwanted)
+
+local data = [[
+	ALTER TABLE vrp_users ADD IF NOT EXISTS `wanted` INT(11) NULL DEFAULT 0;
+    ALTER TABLE vrp_users ADD IF NOT EXISTS `cautatpentru` TEXT;
+]]
+
+MySQL.ready(function ()
+    MySQL.Async.execute(data,{}, function(data)end)
+end)
 
 local sql = [[
     UPDATE
